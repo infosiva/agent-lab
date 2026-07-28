@@ -1,0 +1,33 @@
+# synthesize prompt eval — must cite sources, must not invent facts absent from context. Run:
+# npx promptfoo eval -c promptfoo/synthesize.yaml
+prompts:
+  - "{{question}}"
+providers:
+  - file://synthesize.provider.mjs
+tests:
+  - vars:
+      question: "What chunk size and overlap does the splitter use?"
+      contextText: "[lib/chunk.ts]\nexport function chunkText(text, chunkSize = 1200, overlap = 150) { ... }"
+    assert:
+      - type: contains
+        value: "1200"
+      - type: contains
+        value: "lib/chunk.ts"
+      - type: not-contains
+        value: "RecursiveCharacterTextSplitter"
+  - vars:
+      question: "What vector DB is used?"
+      contextText: "[HANDOFF.md]\nVector DB | Qdrant Cloud (free tier) — live, verified"
+    assert:
+      - type: contains
+        value: "Qdrant"
+      - type: not-contains
+        value: "Pinecone"
+  - vars:
+      question: "What does the auth system use?"
+      contextText: "[lib/chunk.ts]\nexport function chunkText(text, chunkSize = 1200, overlap = 150) { ... }"
+    assert:
+      - type: not-contains
+        value: "NextAuth"
+      - type: not-contains
+        value: "JWT"

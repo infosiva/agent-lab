@@ -1,0 +1,24 @@
+# planStep prompt eval — question -> single search query. Run:
+# npx promptfoo eval -c promptfoo/plan.yaml
+prompts:
+  - "{{question}}"
+providers:
+  - file://plan.provider.mjs
+tests:
+  - vars:
+      question: "What chunking strategy does ingestion use?"
+    assert:
+      - type: not-contains
+        value: "?"
+      - type: javascript
+        value: "output.split(' ').length < 15"
+  - vars:
+      question: "How does the embedding fallback work?"
+    assert:
+      - type: javascript
+        value: "output.length < 120"
+  - vars:
+      question: "What loops does the LangGraph orchestrator support?"
+    assert:
+      - type: not-contains
+        value: "I "

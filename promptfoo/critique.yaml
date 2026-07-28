@@ -1,0 +1,28 @@
+# critique prompt eval — strict YES/NO first, must fail (NO) ungrounded claims. Run:
+# npx promptfoo eval -c promptfoo/critique.yaml
+prompts:
+  - "{{question}}"
+providers:
+  - file://critique.provider.mjs
+tests:
+  - vars:
+      question: "What chunk size does the splitter use?"
+      contextText: "[lib/chunk.ts]\nchunkSize = 1200, overlap = 150"
+      answer: "The splitter uses a 1200-char window with 150 overlap, per lib/chunk.ts."
+    assert:
+      - type: starts-with
+        value: "YES"
+  - vars:
+      question: "What splitter library is used?"
+      contextText: "[lib/chunk.ts]\nOwn char-window splitter, no external library"
+      answer: "It uses LangChain's RecursiveCharacterTextSplitter."
+    assert:
+      - type: starts-with
+        value: "NO"
+  - vars:
+      question: "What vector DB is used?"
+      contextText: "[HANDOFF.md]\nVector DB | Qdrant Cloud (free tier)"
+      answer: "Qdrant Cloud, per HANDOFF.md."
+    assert:
+      - type: starts-with
+        value: "YES"
