@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { embedOne } from '@/lib/embeddings'
 import { searchChunks } from '@/lib/qdrant'
+import { checkRateLimit, getIp } from '@/lib/rateLimit'
 
 export const runtime = 'nodejs'
 
 export async function POST(req: NextRequest) {
+  const { ok } = checkRateLimit(getIp(req), 60)
+  if (!ok) {
+    return NextResponse.json({ error: 'Rate limit exceeded — 60 requests/hour' }, { status: 429 })
+  }
+
   try {
     const { question, limit } = await req.json()
     if (!question || typeof question !== 'string') {
