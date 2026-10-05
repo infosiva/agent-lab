@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MagneticButton } from "@infosiva/shared-ui/modern";
 
 type AgentResult = {
   answer: string;
@@ -70,13 +71,13 @@ export default function Home() {
             placeholder="Ask about the ingested codebase…"
             className="flex-1 rounded-lg border border-black/[.08] bg-white px-4 py-2.5 text-sm text-black outline-none focus:border-[var(--accent)] dark:border-white/[.145] dark:bg-zinc-900 dark:text-zinc-50"
           />
-          <button
+          <MagneticButton
             type="submit"
             disabled={loading || !question.trim()}
             className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-40"
           >
             {loading ? "Thinking…" : "Ask"}
-          </button>
+          </MagneticButton>
         </form>
 
         {!result && !loading && !error && (
