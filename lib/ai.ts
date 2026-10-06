@@ -49,9 +49,9 @@ const DEFAULTS: Record<string, { tiers: Record<Quality, string[]>; baseUrl: stri
     baseUrl: 'https://api.groq.com/openai/v1',
     keyEnv: 'GROQ',
     tiers: {
-      fast:     ['llama-3.1-8b-instant', 'gemma2-9b-it'],
-      balanced: ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'],
-      best:     ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'],
+      fast:     ['qwen/qwen3.8-27b', 'gemma2-9b-it'],
+      balanced: ['openai/gpt-oss-20b', 'qwen/qwen3.8-27b'],
+      best:     ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'],
     },
   },
   gemini: {
