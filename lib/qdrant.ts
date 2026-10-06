@@ -47,8 +47,8 @@ export async function upsertChunks(chunks: DocChunk[], vectors: number[][]) {
 
 export async function searchChunks(vector: number[], limit = 5) {
   const client = getQdrant()
-  const results = await client.search(COLLECTION, { vector, limit, with_payload: true })
-  return results.map(r => ({
+  const { points } = await client.query(COLLECTION, { query: vector, limit, with_payload: true })
+  return points.map(r => ({
     text: r.payload?.text as string,
     source: r.payload?.source as string,
     score: r.score,
