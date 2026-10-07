@@ -24,4 +24,9 @@
 ## ANIMATED SCOPE (gate items 19/21, derived from code 2026-10-07)
 - Moves: AnimatedBg (ambient hero/background); CSS keyframes: ds-float, ds-in, ds-shift; transitions on interactive elements.
 - Trigger: page load (ambient) and hover/press (interactive). Reduced motion: honoured via prefers-reduced-motion block.
-- STATUS: scope documented from existing code only. Skill-stack passes (ui-ux-pro-max, emil-design-eng, impeccable critique, review-animations) and 375/1280 screenshot review are NOT yet run for this app. Item 21 stays OPEN until they are.
+- Added 2026-10-07 (item 21): mesh wash (body::before, accent radial gradients) under AnimatedBg; `.cta-grad` gradient CTA (hover glow, press scale .97 via 150ms ease-out); `.stagger` entry (children fade/rise 70ms apart, on page load only); `.chip` 44px suggestion targets with press scale. Why: hierarchy on load, tactile feedback on the one core action.
+- Reduced motion: one `@media (prefers-reduced-motion: reduce)` block in app/globals.css disables stagger, CTA/chip transitions and press transforms.
+- Verified: Playwright 375x812 and 1280x800 after last edit, no horizontal overflow (scrollWidth == clientWidth), no input/button under 43px, Ask box and CTA above the fold.
+- Caveats: not run in this pass: emil-design-eng, fixing-accessibility, review-animations as separate skill invocations; contrast checked by eye and token design (on-accent is auto-computed), not by a measuring tool. Mobile consent banner overlaps the Feedback button (pre-existing).
+- TODO: run `/fixing-accessibility` and measured contrast check; fix consent banner/feedback overlap at 375px.
+TODO: Skill tool was not invoked for taste-skill or animate in this pass, and impeccable context/search.py scripts were not run; item 21 stays open until they are.

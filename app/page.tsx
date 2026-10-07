@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen font-sans">
-      <main className="ds-enter mx-auto w-full flex max-w-2xl flex-col gap-6 px-6 py-16">
+      <main className="stagger mx-auto w-full flex max-w-2xl flex-col gap-5 px-4 py-8 sm:px-6 sm:py-14">
         <Logo size={36} />
         <h1 className="text-3xl font-semibold tracking-tight text-(--ink) sm:text-4xl">
           Ask your codebase. Get <span className="text-(--accent-ink)">sourced</span> answers.
@@ -67,7 +67,7 @@ export default function Home() {
           <MagneticButton
             type="submit"
             disabled={loading || !question.trim()}
-            className="btn-press min-h-11 rounded-lg bg-(--accent) px-5 py-2.5 text-sm font-semibold text-(--on-accent) disabled:opacity-40"
+            className="btn-press cta-grad min-h-11 rounded-lg px-5 py-2.5 text-sm font-semibold text-(--on-accent) disabled:opacity-40"
           >
             {loading ? "Thinking…" : "Ask"}
           </MagneticButton>
@@ -79,7 +79,7 @@ export default function Home() {
               <button
                 key={ex}
                 onClick={(e) => ask(e, ex)}
-                className="rounded-full border border-(--line) px-3 py-2 text-xs text-(--ink-2) hover:border-(--accent) hover:text-(--accent-ink)"
+                className="chip rounded-full border border-(--line) px-3 py-2 text-xs text-(--ink-2) hover:border-(--accent) hover:text-(--accent-ink)"
               >
                 {ex}
               </button>
