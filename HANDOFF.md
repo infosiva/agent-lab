@@ -10,3 +10,12 @@
 - Pillars: AI chat/feedback use free chain Groq->Gemini->Cerebras with graceful 200 fallback; no new deps; gaps (no evals/RAG changes in this pass) stated in final report.
 
 ---
+
+
+## OWASP LLM Top 10 dispositions (gate item 45, 2026-10-07; list recalled from memory, unverified)
+- LLM01 prompt injection: input sanitised in chat route (app/api/chat/route.ts); no output filtering or tool sandbox review done. PARTIAL.
+- LLM02 sensitive info disclosure: `redact()` helper available; not applied to every log. PARTIAL.
+- LLM04/10 DoS / unbounded consumption: per-IP rate limit where present; token budgets not enforced. PARTIAL.
+- LLM05 improper output handling: model output rendered as text; not audited for HTML sinks. UNVERIFIED.
+- LLM06 excessive agency: no tool-calling agents audited. UNVERIFIED.
+- Others (supply chain, poisoning, embeddings, misinformation): not assessed.

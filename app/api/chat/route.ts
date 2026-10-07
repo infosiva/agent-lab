@@ -1,3 +1,4 @@
+import { sanitizeUserInput } from '@/lib/guard'
 import { NextRequest, NextResponse } from 'next/server'
 import { aiChat } from '@/lib/ai'
 import { checkRateLimit, getIp } from '@/lib/rateLimit'
@@ -11,6 +12,7 @@ export async function POST(req: NextRequest) {
   if (!ok) return NextResponse.json({ text: 'Rate limit reached (60 per hour). Please try again later.' })
   try {
     const { messages } = await req.json()
+    for (const m of Array.isArray(messages) ? messages : []) if (m && typeof m.content === 'string') m.content = sanitizeUserInput(m.content).text
     if (!Array.isArray(messages) || !messages.length) return NextResponse.json({ text: 'Ask me how agent-lab works.' })
     const text = await aiChat(messages.slice(-10), SYSTEM, 400, 'fast')
     log('info', 'chat_used', { turns: messages.length })
